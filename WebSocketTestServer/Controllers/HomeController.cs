@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using WebSocketTestServer.Models;
 
 namespace WebSocketTestServer.Controllers
@@ -38,6 +43,27 @@ namespace WebSocketTestServer.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpGet("chunked")]
+        public async Task ChunkedTest()
+        {
+            var response = HttpContext.Response;
+            response.StatusCode = 200;
+            response.Headers[HeaderNames.TransferEncoding] = "chunked";
+
+            var listOfStrings = new List<string> { "Wiki", "pedia", " in", " chunks." };
+            foreach (var str in listOfStrings)
+            {
+                await response.WriteAsync($"{str.Length}\r\n");
+                await response.WriteAsync($"{str}\r\n");
+                await response.Body.FlushAsync();
+                await Task.Delay(15000);
+            }
+
+            await response.WriteAsync("0\r\n");
+            await response.WriteAsync("\r\n");
+            await response.Body.FlushAsync();
         }
     }
 }

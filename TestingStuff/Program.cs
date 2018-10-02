@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TestingStuff.Coordination;
@@ -12,8 +15,60 @@ namespace TestingStuff
     {
         static void Main(string[] args)
         {
-            InterlockedTest();
+            ChunkedTest().Wait();
             Console.ReadKey();
+        }
+
+        static async Task WithAsync()
+        {
+            Print("WithAsync");
+            var task = Task.Run(() =>
+            {
+                Thread.Sleep(100);
+                Print("In Task.Run");
+            });
+            await Task.Yield();
+            await task;
+            await Task.Yield();
+            Print("After task await");
+        }
+
+        static async Task ChunkedTest()
+        {
+            var httpClient = new HttpClient();
+            var stream = await httpClient.GetStreamAsync("http://localhost:61727/chunked");
+            using (var streamReader = new StreamReader(stream))
+            {
+                while (!streamReader.EndOfStream)
+                {
+                    var buffer = new char[10];
+                    var readLength = await streamReader.ReadAsync(buffer, 0, 10);
+                    var stuff = new string(buffer, 0, readLength);
+                    Console.Write(stuff);
+                }
+            }
+        }
+
+        static async Task WithAsync(TaskCreationOptions options)
+        {
+            Print($"With Async. Options: {options}");
+            var tcs = new TaskCompletionSource<object>(options);
+            var setTask = Task.Run(() =>
+            {
+                Thread.Sleep(3000);
+                Print("Setting task's result");
+                tcs.SetResult(null);
+                Print("Set task's result");
+            });
+
+            await tcs.Task;
+            Print("After task await");
+            await setTask;
+        }
+
+        static void Print(string str)
+        {
+            Console.WriteLine($"{str}: {Thread.CurrentThread.ManagedThreadId}");
         }
 
         static void InterlockedTest()
