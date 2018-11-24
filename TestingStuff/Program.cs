@@ -28,8 +28,25 @@ namespace TestingStuff
             //TaskFactoryMultipleTest();
             //TryAggregatedExceptionAwaitable().Wait();
             //Console.WriteLine($"Solution: {PeakFinder.Run1DSample()}");
-            var solution = new TwoSumSolution().Solve(new[] {2,7,11,15}, 9);
-            Console.WriteLine($"[{solution[0]},{solution[1]}]");
+            var l1 = new ListNode(0);
+            var l2 = new ListNode(0);
+            l1.next = l2;
+            var l3 = new ListNode(9);
+            l2.next = l3;
+
+            var r1 = new ListNode(0);
+            var r2 = new ListNode(0);
+            r1.next = r2;
+            var r3 = new ListNode(5);
+            r2.next = r3;
+            var r4 = new ListNode(9);
+            r3.next = r4;
+
+            var solution = new AddTwoNumbersSolution().Solve(l1, r1);
+            foreach (var value in solution.Values().Reverse())
+            {
+                Console.Write(value);
+            }
 
             Console.ReadKey();
         }
