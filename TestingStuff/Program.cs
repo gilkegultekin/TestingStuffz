@@ -27,7 +27,9 @@ namespace TestingStuff
             //WithAsync(TaskCreationOptions.RunContinuationsAsynchronously).Wait();
             //TaskFactoryMultipleTest();
             //TryAggregatedExceptionAwaitable().Wait();
-            Console.WriteLine($"Solution: {PeakFinder.Run1DSample()}");
+            //Console.WriteLine($"Solution: {PeakFinder.Run1DSample()}");
+            var solution = new TwoSumSolution().Solve(new[] {2,7,11,15}, 9);
+            Console.WriteLine($"[{solution[0]},{solution[1]}]");
 
             Console.ReadKey();
         }
