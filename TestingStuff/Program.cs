@@ -28,6 +28,19 @@ namespace TestingStuff
             //TaskFactoryMultipleTest();
             //TryAggregatedExceptionAwaitable().Wait();
             //Console.WriteLine($"Solution: {PeakFinder.Run1DSample()}");
+            LengthOfLongestSubstring();
+
+            Console.ReadKey();
+        }
+
+        static void LengthOfLongestSubstring()
+        {
+            var s = "pwzwpkew";
+            Console.WriteLine(new LengthOfLongestSubstringSolution().Solve(s));
+        }
+
+        static void AddTwoNumbers()
+        {
             var l1 = new ListNode(0);
             var l2 = new ListNode(0);
             l1.next = l2;
@@ -47,8 +60,6 @@ namespace TestingStuff
             {
                 Console.Write(value);
             }
-
-            Console.ReadKey();
         }
 
         static void TaskFactoryMultipleTest()
