@@ -28,9 +28,18 @@ namespace TestingStuff
             //TaskFactoryMultipleTest();
             //TryAggregatedExceptionAwaitable().Wait();
             //Console.WriteLine($"Solution: {PeakFinder.Run1DSample()}");
-            LengthOfLongestSubstring();
+            //LengthOfLongestSubstring();
+            IsomorphicStrings();
 
             Console.ReadKey();
+        }
+
+        static void IsomorphicStrings()
+        {
+            var s = "ab";
+            var t = "aa";
+            var solution = new IsomorphicStringsSolution();
+            Console.WriteLine(solution.Solve(s,t));
         }
 
         static void LengthOfLongestSubstring()

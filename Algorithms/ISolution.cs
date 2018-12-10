@@ -10,7 +10,7 @@
         TResult Solve(TParameter param);
     }
 
-    public interface ISolution<out TResult, in TParameter1, TParameter2>
+    public interface ISolution<out TResult, in TParameter1, in TParameter2>
     {
         TResult Solve(TParameter1 param1, TParameter2 param2);
     }
