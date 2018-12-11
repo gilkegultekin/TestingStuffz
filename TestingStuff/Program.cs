@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Algorithms;
+using Algorithms.HelperClasses;
 using TestingStuff.Coordination;
 
 namespace TestingStuff
@@ -29,9 +30,55 @@ namespace TestingStuff
             //TryAggregatedExceptionAwaitable().Wait();
             //Console.WriteLine($"Solution: {PeakFinder.Run1DSample()}");
             //LengthOfLongestSubstring();
-            IsomorphicStrings();
+            //IsomorphicStrings();
+            //ImmutableStackStuff();
+            AddTwoNumbersII();
 
             Console.ReadKey();
+        }
+
+        static void AddTwoNumbersII()
+        {
+            var l1 = new ListNode(0);
+            //var l1 = new ListNode(3);
+            //var l2 = new ListNode(9);
+            //l1.next = l2;
+            //var l3 = new ListNode(9);
+            //l2.next = l3;
+            //var l4 = new ListNode(9);
+            //l3.next = l4;
+            //var l5 = new ListNode(9);
+            //l4.next = l5;
+            //var l6 = new ListNode(9);
+            //l5.next = l6;
+            //var l7 = new ListNode(9);
+            //l6.next = l7;
+            //var l8 = new ListNode(9);
+            //l7.next = l8;
+            //var l9 = new ListNode(9);
+            //l8.next = l9;
+            //var l10 = new ListNode(9);
+            //l9.next = l10;
+
+            var r1 = new ListNode(0);
+            //var r2 = new ListNode(2);
+            //r1.next = r2;
+            //var r3 = new ListNode(4);
+            //r2.next = r3;
+            //var r4 = new ListNode(3);
+            //r3.next = r4;
+
+            var solution = new AddTwoNumbersIISolution().Solve(r1, l1);
+            foreach (var value in solution.Values())
+            {
+                Console.Write(value);
+            }
+        }
+
+        static void ImmutableStackStuff()
+        {
+            var pg = new ImmutableStackPlayground();
+            pg.RandomStuff();
         }
 
         static void IsomorphicStrings()
