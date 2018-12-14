@@ -23,6 +23,7 @@ namespace TestingStuff
     {
         static void Main(string[] args)
         {
+            Do1();
             //WithAsync().Wait();
             //WithAsync(TaskCreationOptions.None).Wait();
             //WithAsync(TaskCreationOptions.RunContinuationsAsynchronously).Wait();
@@ -32,7 +33,7 @@ namespace TestingStuff
             //LengthOfLongestSubstring();
             //IsomorphicStrings();
             //ImmutableStackStuff();
-            AddTwoNumbersII();
+            //AddTwoNumbersII();
 
             Console.ReadKey();
         }
@@ -645,18 +646,18 @@ namespace TestingStuff
         static async void Do1()
         {
             var asyncLocal = new AsyncLocal<int> { Value = 42 };
-            Console.WriteLine($"Asynclocal value before first await: {asyncLocal.Value}");
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} - Asynclocal value before first await: {asyncLocal.Value}");
 
             var task = Task.Delay(42);
-            await task.ContinueWith(ant => Console.WriteLine($"Asynclocal value in continuewith {asyncLocal.Value}"));
+            await task.ContinueWith(ant => Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} - Asynclocal value in continuewith {asyncLocal.Value}"));
 
-            Console.WriteLine($"Asynclocal value after first await: {asyncLocal.Value}");
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} - Asynclocal value after first await: {asyncLocal.Value}");
 
             var task2 = Task.Delay(42);
-            task2.GetAwaiter().UnsafeOnCompleted(() => Console.WriteLine($"Asynclocal value in unsafeoncompleted {asyncLocal.Value}"));
+            task2.GetAwaiter().UnsafeOnCompleted(() => Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} - Asynclocal value in unsafeoncompleted {asyncLocal.Value}"));
             await task2;
 
-            Console.WriteLine($"Asynclocal value after second await: {asyncLocal.Value}");
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} - Asynclocal value after second await: {asyncLocal.Value}");
         }
 
         static async void Do2()
