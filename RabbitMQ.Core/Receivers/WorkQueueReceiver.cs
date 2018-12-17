@@ -31,7 +31,7 @@ namespace RabbitMQ.Core.Receivers
                 arguments: null);
             _channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false); //don't want to get messages until I finish processing the current message, fetch messages one by one
 
-            _logger.Log($"The queue \"{ChannelName}\" has been declared! Waiting for messages...");
+            _logger.Log($"The queue \"{ChannelName}\" has been declared!");
         }
 
         public void StartReceiving()

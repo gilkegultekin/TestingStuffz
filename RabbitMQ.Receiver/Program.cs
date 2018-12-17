@@ -8,8 +8,22 @@ namespace RabbitMQ.Receiver
     {
         static void Main(string[] args)
         {
-            WorkQueueReceiver();
+            ExchangeReceiver();
+
             Console.ReadKey();
+        }
+
+        static void ExchangeReceiver()
+        {
+            using (var exchangeReceiver = new ExchangeReceiver())
+            {
+                exchangeReceiver.Initialize();
+                exchangeReceiver.StartReceiving();
+
+                Console.WriteLine("Press [enter] to exit");
+                Console.ReadLine();
+                exchangeReceiver.StopReceiving();
+            }
         }
 
         static void WorkQueueReceiver()

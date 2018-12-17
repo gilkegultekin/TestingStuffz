@@ -9,9 +9,35 @@ namespace RabbitMQ.Sender
     {
         static void Main(string[] args)
         {
-            WorkQueueSender();
+            ExchangeSender();
 
             Console.ReadKey();
+        }
+
+        static void ExchangeSender()
+        {
+            using (var exchangeSender = new ExchangeSender())
+            {
+                exchangeSender.Initialize();
+
+                var task = Task.Run(async () =>
+                {
+                    var random = new Random(Guid.NewGuid().GetHashCode());
+
+                    for (int i = 0; i < Math.Pow(10,3); i++)
+                    {
+                        var delay = random.Next(1, 7);
+                        await Task.Delay(delay * 1000);
+                        var message = $"MessageNumber{i}";
+                        exchangeSender.Send(message);
+                    }
+                });
+
+                task.Wait();
+
+                Console.WriteLine("Press [enter] to exit");
+                Console.ReadLine();
+            }
         }
 
         static void WorkQueueSender()
