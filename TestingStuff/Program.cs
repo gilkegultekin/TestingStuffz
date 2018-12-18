@@ -11,6 +11,7 @@ using System.Web;
 using Algorithms;
 using Algorithms.HelperClasses;
 using TestingStuff.Coordination;
+using TestingStuff.Network;
 
 namespace TestingStuff
 {
@@ -23,7 +24,10 @@ namespace TestingStuff
     {
         static void Main(string[] args)
         {
-            Do1();
+            //Do1();
+
+
+
             //WithAsync().Wait();
             //WithAsync(TaskCreationOptions.None).Wait();
             //WithAsync(TaskCreationOptions.RunContinuationsAsynchronously).Wait();
@@ -35,7 +39,16 @@ namespace TestingStuff
             //ImmutableStackStuff();
             //AddTwoNumbersII();
 
+            TcpTester().Wait();
+
             Console.ReadKey();
+        }
+
+        static async Task TcpTester()
+        {
+            var tcpTester = new TcpTester();
+            tcpTester.Initialize();
+            await tcpTester.DoYourThing();
         }
 
         static void AddTwoNumbersII()
@@ -632,10 +645,6 @@ namespace TestingStuff
                     asyncEvent.Set();
                 });
             }
-
-
-
-
         }
 
         static void DoSomething()
