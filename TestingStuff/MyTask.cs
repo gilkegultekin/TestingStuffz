@@ -6,9 +6,7 @@ namespace TestingStuff
 {
     public class MyTask<TResult>
     {
-        private bool _isCompleted;
-
-        public bool isCompleted => _isCompleted;
+        public bool IsCompleted { get; }
 
         public MyTaskAwaiter<TResult> GetAwaiter() => new MyTaskAwaiter<TResult>(this);
 

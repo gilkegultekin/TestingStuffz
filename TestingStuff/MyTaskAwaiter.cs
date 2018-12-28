@@ -24,6 +24,6 @@ namespace TestingStuff
 
         public TResult GetResult() => _task.Result;
 
-        //public bool IsCompleted => _task.IsCompleted;
+        public bool IsCompleted => _task.IsCompleted;
     }
 }

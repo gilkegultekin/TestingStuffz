@@ -18,6 +18,7 @@ namespace TestingStuff.Network
         private const int BufferLength = 1024;
 
         private readonly ManualResetEventSlim _signal = new ManualResetEventSlim(false);
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
 
         public bool State { get; private set; }
@@ -41,7 +42,7 @@ namespace TestingStuff.Network
             {
                 while (State)
                 {
-                    var client = await _tcpListener.AcceptTcpClientAsync();
+                    var client = await _tcpListener.AcceptTcpClientAsync(_cancellationTokenSource.Token);
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                     Task.Run(async () =>
                     {
@@ -72,10 +73,10 @@ namespace TestingStuff.Network
             {
                 Console.WriteLine(e);
             }
-            finally
-            {
-                _signal.Set();
-            }
+            //finally
+            //{
+            //    _signal.Set();
+            //}
         }
 
         private async Task Read(TcpClient client)
@@ -127,9 +128,9 @@ namespace TestingStuff.Network
         public void Stop()
         {
             State = false;
-            _tcpListener.Server.Shutdown(SocketShutdown.Receive);
-            _signal.Wait();
-            _tcpListener.Stop(); //disposes socket
+            _cancellationTokenSource.Cancel();
+            //_signal.Wait();
+            //_tcpListener.Stop(); //disposes socket
             Console.WriteLine("Stopped TcpReceiver");
         }
     }

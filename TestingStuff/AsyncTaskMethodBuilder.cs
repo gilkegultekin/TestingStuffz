@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace System.Runtime.CompilerServices
 {
-    public class AsyncTaskMethodBuilder<T>
+    public struct AsyncTaskMethodBuilder<T>
     {
         private readonly TaskCompletionSource<T> _source;
 

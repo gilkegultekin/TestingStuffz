@@ -20,10 +20,51 @@ namespace TestingStuff
         public int Counter { get; set; }
         public AutoResetEvent AutoResetEvent { get; set; }
     }
+
+    class Foo
+    {
+        public virtual int X { get; set; }
+
+        public Foo()
+        {
+            //X = 3;
+        }
+    }
+
+    class Bar : Foo
+    {
+        private int _X;
+        private volatile bool _isInitialized;
+
+        public Bar()
+        {
+            _isInitialized = true;
+            _X = 5;
+        }
+
+        public override int X
+        {
+            get => _X;
+            set
+            {
+                if (!_isInitialized)
+                {
+                    throw new Exception();
+                }
+                _X = value;
+            }
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
+            //var bar = new Bar();
+
+            new AsyncLocalTest().Test();
+
+
             //Do1();
 
 
@@ -39,7 +80,7 @@ namespace TestingStuff
             //ImmutableStackStuff();
             //AddTwoNumbersII();
 
-            TcpTester().Wait();
+            //TcpTester().Wait();
 
             Console.ReadKey();
         }
