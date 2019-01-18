@@ -88,6 +88,19 @@ namespace Algorithms
         }
     }
 
+	public static class ArrayExtensions
+	{
+		public static void WriteToConsole<TInput, TKey>(this TInput[] array, Func<TInput, TKey> keySelectorFunc)
+		{
+			Console.WriteLine("Writing array to console");
+			foreach (var element in array)
+			{
+				Console.Write($"{keySelectorFunc(element)} ");
+			}
+			Console.WriteLine();
+		}
+	}
+
     public static class ListExtensions
     {
         public static Tuple<int, int> MaxWithLocation(this List<int> list)
@@ -124,7 +137,29 @@ namespace Algorithms
             return list;
         }
 
-        public static Matrix GenerateSquareMatrix(int matrixSize, int minValue, int maxValue)
+		//brute force
+	    public static List<int> Generate1DListWithDistinctValues(int listSize, int minValue, int maxValue)
+	    {
+		    var list = new List<int>(listSize);
+		    var random = new Random(Guid.NewGuid().GetHashCode());
+		    for (int i = 0; i < listSize; i++)
+		    {
+			    int next;
+			    do
+			    {
+				    next = random.Next(minValue, maxValue);
+
+			    } while (list.Contains(next));
+				
+			    list.Add(next);
+			    //Console.Write($"{list[i]} - ");
+		    }
+
+		    //Console.WriteLine();
+		    return list;
+	    }
+
+		public static Matrix GenerateSquareMatrix(int matrixSize, int minValue, int maxValue)
         {
             var matrix = new Matrix();
             for (int i = 0; i < matrixSize; i++)

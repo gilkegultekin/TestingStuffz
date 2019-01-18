@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Algorithms;
+using Algorithms.HelperClasses;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Algorithms;
-using Algorithms.HelperClasses;
+using Algorithms.Heaps;
 using TestingStuff.Coordination;
 using TestingStuff.Network;
 
@@ -60,32 +62,45 @@ namespace TestingStuff
     {
         static void Main(string[] args)
         {
-            //var bar = new Bar();
+			//var bar = new Bar();
 
-            new AsyncLocalTest().Test();
+			//new AsyncLocalTest().Test();
 
+			//Do1();
 
-            //Do1();
+	        HeapTest();
 
+			//WithAsync().Wait();
+			//WithAsync(TaskCreationOptions.None).Wait();
+			//WithAsync(TaskCreationOptions.RunContinuationsAsynchronously).Wait();
+			//TaskFactoryMultipleTest();
+			//TryAggregatedExceptionAwaitable().Wait();
+			//Console.WriteLine($"Solution: {PeakFinder.Run1DSample()}");
+			//LengthOfLongestSubstring();
+			//IsomorphicStrings();
+			//ImmutableStackStuff();
+			//AddTwoNumbersII();
 
+			//TcpTester().Wait();
 
-            //WithAsync().Wait();
-            //WithAsync(TaskCreationOptions.None).Wait();
-            //WithAsync(TaskCreationOptions.RunContinuationsAsynchronously).Wait();
-            //TaskFactoryMultipleTest();
-            //TryAggregatedExceptionAwaitable().Wait();
-            //Console.WriteLine($"Solution: {PeakFinder.Run1DSample()}");
-            //LengthOfLongestSubstring();
-            //IsomorphicStrings();
-            //ImmutableStackStuff();
-            //AddTwoNumbersII();
-
-            //TcpTester().Wait();
-
-            Console.ReadKey();
+			Console.ReadKey();
         }
 
-        static async Task TcpTester()
+	    static void HeapTest()
+	    {
+		    //var random = new Random(Guid.NewGuid().GetHashCode());
+			//var listSize = random.Next(10, 20);
+		    var array = IntegerListGenerator.Generate1DListWithDistinctValues(5, 0, 100).ToArray();
+		    Console.WriteLine("Before MaxHeapify");
+			array.WriteToConsole(e => e);
+		    var maxHeap = new MaxHeap<int>(array, (f, s) => f > s);
+		    var isMaxHeap = maxHeap.IsMaxHeap();
+			Console.WriteLine("After MaxHeapify");
+			array.WriteToConsole(e => e);
+		    Console.WriteLine($"IsMaxHeap: {isMaxHeap}");
+		}
+
+		static async Task TcpTester()
         {
             var tcpTester = new TcpTester();
             tcpTester.Initialize();
@@ -141,7 +156,7 @@ namespace TestingStuff
             var s = "ab";
             var t = "aa";
             var solution = new IsomorphicStringsSolution();
-            Console.WriteLine(solution.Solve(s,t));
+            Console.WriteLine(solution.Solve(s, t));
         }
 
         static void LengthOfLongestSubstring()
@@ -258,7 +273,7 @@ namespace TestingStuff
 
         static void T1(object state)
         {
-            var s = (TestState) state;
+            var s = (TestState)state;
             Console.WriteLine($"{s.Counter}: T1 started");
             Thread.Sleep(1000);
             s.AutoResetEvent.Set();
