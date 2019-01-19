@@ -88,16 +88,16 @@ namespace Algorithms
         }
     }
 
-	public static class ArrayExtensions
+	public static class EnumerableExtensions
 	{
-		public static void WriteToConsole<TInput, TKey>(this TInput[] array, Func<TInput, TKey> keySelectorFunc)
+        public static void WriteToConsole<TInput, TKey>(this IEnumerable<TInput> array, Func<TInput, TKey> keySelectorFunc)
 		{
-			Console.WriteLine("Writing array to console");
 			foreach (var element in array)
 			{
 				Console.Write($"{keySelectorFunc(element)} ");
 			}
-			Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("----------------------");
 		}
 	}
 

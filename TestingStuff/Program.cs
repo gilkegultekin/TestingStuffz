@@ -90,14 +90,48 @@ namespace TestingStuff
 	    {
 		    //var random = new Random(Guid.NewGuid().GetHashCode());
 			//var listSize = random.Next(10, 20);
-		    var array = IntegerListGenerator.Generate1DListWithDistinctValues(5, 0, 100).ToArray();
+		    var list = IntegerListGenerator.Generate1DListWithDistinctValues(12, 0, 100);
 		    Console.WriteLine("Before MaxHeapify");
-			array.WriteToConsole(e => e);
-		    var maxHeap = new MaxHeap<int>(array, (f, s) => f > s);
+			list.WriteToConsole(e => e);
+
+		    var maxHeap = new MaxHeap<int>(list, (f, s) => f > s);
 		    var isMaxHeap = maxHeap.IsMaxHeap();
 			Console.WriteLine("After MaxHeapify");
-			array.WriteToConsole(e => e);
-		    Console.WriteLine($"IsMaxHeap: {isMaxHeap}");
+			list.WriteToConsole(e => e);
+            Console.WriteLine($"IsMaxHeap: {isMaxHeap}");
+
+            Console.WriteLine("Enter a new number to insert :");
+            var newNumber = Console.ReadLine();
+            maxHeap.Insert(int.Parse(newNumber));
+            Console.WriteLine("Maxheap after insertion");
+            maxHeap.WriteToConsole();
+
+            var sorted = maxHeap.Sort();
+            Console.WriteLine("Sorted list - first sort");
+            sorted.WriteToConsole(e => e);
+            Console.WriteLine("Max heap after sorting");
+            maxHeap.WriteToConsole();
+
+            sorted = maxHeap.Sort();
+            Console.WriteLine("Sorted list - second sort");
+            sorted.WriteToConsole(e => e);
+            Console.WriteLine("Max heap after second sorting");
+            maxHeap.WriteToConsole();
+
+            Console.WriteLine("Enter the index to delete :");
+            var deleteIndex = Console.ReadLine();
+            var deletedElement = maxHeap.Delete(int.Parse(deleteIndex));
+            Console.WriteLine($"Deleted element: {deletedElement}");
+            Console.WriteLine("Maxheap after deletion");
+            maxHeap.WriteToConsole();
+
+            sorted = maxHeap.Sort();
+            Console.WriteLine("Sorted list - third sort");
+            sorted.WriteToConsole(e => e);
+            Console.WriteLine("Max heap after third sorting");
+            maxHeap.WriteToConsole();
+
+
 		}
 
 		static async Task TcpTester()
