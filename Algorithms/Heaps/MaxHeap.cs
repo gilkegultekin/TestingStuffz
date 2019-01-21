@@ -3,15 +3,13 @@ using System.Collections.Generic;
 
 namespace Algorithms.Heaps
 {
-    public class MaxHeap<T>
+    public class MaxHeap<T> where T : IComparable<T>
     {
         private readonly List<T> _input;
-        private readonly Func<T, T, bool> _keyComparerFunc;
 
-        public MaxHeap(List<T> input, Func<T, T, bool> keyComparerFunc)
+        public MaxHeap(List<T> input)
         {
             _input = input;
-            _keyComparerFunc = keyComparerFunc;
             BuildMaxHeap();
         }
 
@@ -49,7 +47,7 @@ namespace Algorithms.Heaps
         }
 
         //Swap if necessary to satisfy the heap condition for the current node. If a swap occurred, recurse with the swapped node index, as it might violate the heap condition after the swap
-        public void MaxHeapify(int virtualNodeIndex)
+        private void MaxHeapify(int virtualNodeIndex)
         {
             MaxHeapify(_input, virtualNodeIndex);
         }
@@ -171,7 +169,7 @@ namespace Algorithms.Heaps
             {
                 throw new Exception("Indexes must be nonnegative");
             }
-            return second > list.Count - 1 || _keyComparerFunc(list[first], list[second]);
+            return second > list.Count - 1 || list[first].CompareTo(list[second]) > 0;
         }
     }
 }

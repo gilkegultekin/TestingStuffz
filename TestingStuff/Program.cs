@@ -94,7 +94,7 @@ namespace TestingStuff
 		    Console.WriteLine("Before MaxHeapify");
 			list.WriteToConsole(e => e);
 
-		    var maxHeap = new MaxHeap<int>(list, (f, s) => f > s);
+		    var maxHeap = new MaxHeap<int>(list);
 		    var isMaxHeap = maxHeap.IsMaxHeap();
 			Console.WriteLine("After MaxHeapify");
 			list.WriteToConsole(e => e);
