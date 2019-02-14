@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Web;
 using Algorithms.Heaps;
 using TestingStuff.Coordination;
 using TestingStuff.Network;
+using TestingStuff.Reflection;
 
 namespace TestingStuff
 {
@@ -62,30 +64,32 @@ namespace TestingStuff
     {
         static void Main(string[] args)
         {
-			//var bar = new Bar();
+            //var bar = new Bar();
 
-			//new AsyncLocalTest().Test();
+            //new AsyncLocalTest().Test();
 
-			//Do1();
+            //Do1();
 
-	        HeapTest();
+            //HeapTest();
 
-			//WithAsync().Wait();
-			//WithAsync(TaskCreationOptions.None).Wait();
-			//WithAsync(TaskCreationOptions.RunContinuationsAsynchronously).Wait();
-			//TaskFactoryMultipleTest();
-			//TryAggregatedExceptionAwaitable().Wait();
-			//Console.WriteLine($"Solution: {PeakFinder.Run1DSample()}");
-			//LengthOfLongestSubstring();
-			//IsomorphicStrings();
-			//ImmutableStackStuff();
-			//AddTwoNumbersII();
+            DynamicMethodTest.Test3();
 
-			//TcpTester().Wait();
+            //WithAsync().Wait();
+            //WithAsync(TaskCreationOptions.None).Wait();
+            //WithAsync(TaskCreationOptions.RunContinuationsAsynchronously).Wait();
+            //TaskFactoryMultipleTest();
+            //TryAggregatedExceptionAwaitable().Wait();
+            //Console.WriteLine($"Solution: {PeakFinder.Run1DSample()}");
+            //LengthOfLongestSubstring();
+            //IsomorphicStrings();
+            //ImmutableStackStuff();
+            //AddTwoNumbersII();
 
-			Console.ReadKey();
+            //TcpTester().Wait();
+
+            Console.ReadKey();
         }
-
+        
 	    static void HeapTest()
 	    {
 		    //var random = new Random(Guid.NewGuid().GetHashCode());
