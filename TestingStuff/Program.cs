@@ -15,6 +15,7 @@ using System.Web;
 using Algorithms.Heaps;
 using TestingStuff.Coordination;
 using TestingStuff.Network;
+using TestingStuff.Observer;
 using TestingStuff.Reflection;
 
 namespace TestingStuff
@@ -72,7 +73,7 @@ namespace TestingStuff
 
             //HeapTest();
 
-            DynamicMethodTest.Test3();
+            //DynamicMethodTest.Test3();
 
             //WithAsync().Wait();
             //WithAsync(TaskCreationOptions.None).Wait();
@@ -86,6 +87,8 @@ namespace TestingStuff
             //AddTwoNumbersII();
 
             //TcpTester().Wait();
+
+            UdemyPatternExercise.DoWork();
 
             Console.ReadKey();
         }
