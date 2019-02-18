@@ -37,6 +37,12 @@ namespace Orleans.TutorialOne.Silo
         {
             //define the cluster config
             var builder = new SiloHostBuilder()
+                .AddAdoNetGrainStorage("SqlStorage", options =>
+                {
+                    options.Invariant = "System.Data.SqlClient";
+                    options.ConnectionString = "Server=localhost;Database=OrleansStorageTest;User=sa;Password=1q2w3e4r*;";
+                    options.UseJsonFormat = true;
+                })
                 .UseLocalhostClustering()
                 .Configure<ClusterOptions>(options =>
                 {

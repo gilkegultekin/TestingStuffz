@@ -57,9 +57,20 @@ namespace Orleans.TutorialOne.Client
         private static async Task DoClientWork(IClusterClient client)
         {
             // example of calling grains from the initialized client
-            var friend = client.GetGrain<IHello>(0);
-            var response = await friend.SayHello("Good morning, HelloGrain!");
-            Console.WriteLine($"\n\n{response}\n\n");
+            //var friend = client.GetGrain<IHello>(0);
+            //var response = await friend.SayHello("Good morning, HelloGrain!");
+            //Console.WriteLine($"\n\n{response}\n\n");
+
+            var testGrain = client.GetGrain<IStorageTestGrain>(0);
+
+            //await testGrain.WriteValueToStorage("hello");
+
+            Console.WriteLine($"Current value from storage: {await testGrain.ProvideValueFromStorage()}");
+            Console.WriteLine("Please provide new value to override...");
+
+            var newVal = Console.ReadLine();
+            await testGrain.WriteValueToStorage(newVal);
+            Console.WriteLine($"Current value from storage: {await testGrain.ProvideValueFromStorage()}");
         }
     }
 }
