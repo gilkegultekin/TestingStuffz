@@ -88,7 +88,9 @@ namespace TestingStuff
 
             //TcpTester().Wait();
 
-            UdemyPatternExercise.DoWork();
+            //UdemyPatternExercise.DoWork();
+
+            ReflectionTest.Test();
 
             Console.ReadKey();
         }

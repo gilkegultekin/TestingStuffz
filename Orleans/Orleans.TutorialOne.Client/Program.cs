@@ -65,12 +65,24 @@ namespace Orleans.TutorialOne.Client
 
             //await testGrain.WriteValueToStorage("hello");
 
-            Console.WriteLine($"Current value from storage: {await testGrain.ProvideValueFromStorage()}");
+            Console.WriteLine($"Current value from storage for first grain: {await testGrain.ProvideValueFromStorage()}");
             Console.WriteLine("Please provide new value to override...");
 
             var newVal = Console.ReadLine();
             await testGrain.WriteValueToStorage(newVal);
-            Console.WriteLine($"Current value from storage: {await testGrain.ProvideValueFromStorage()}");
+            Console.WriteLine($"Current value from storage for first grain: {await testGrain.ProvideValueFromStorage()}");
+            var firstGrainKey = testGrain.GetGrainIdentity().PrimaryKeyLong;
+            Console.WriteLine($"Primary key of the first grain: {firstGrainKey}");
+
+            var secondGrain = client.GetGrain<IStorageTestGrain>(1);
+            var secondGrainKey = secondGrain.GetGrainIdentity().PrimaryKeyLong;
+            Console.WriteLine($"Primary key of the second grain: {secondGrainKey}");
+            //await secondGrain.WriteValueToStorage("I am second grain");
+            Console.WriteLine($"Current value from storage for second grain: {await secondGrain.ProvideValueFromStorage()}");
+            Console.WriteLine("Please provide new value to override...");
+            var newValForSecond = Console.ReadLine();
+            await secondGrain.WriteValueToStorage(newValForSecond);
+            Console.WriteLine($"Current value from storage for second grain: {await secondGrain.ProvideValueFromStorage()}");
         }
     }
 }
