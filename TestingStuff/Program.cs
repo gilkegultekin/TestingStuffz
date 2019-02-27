@@ -90,7 +90,7 @@ namespace TestingStuff
 
             //UdemyPatternExercise.DoWork();
 
-            ReflectionTest.Test();
+            ReflectionTest.Test5();
 
             Console.ReadKey();
         }
