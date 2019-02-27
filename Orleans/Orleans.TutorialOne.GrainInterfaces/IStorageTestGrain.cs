@@ -7,7 +7,5 @@ namespace Orleans.TutorialOne.GrainInterfaces
         Task<string> ProvideValueFromStorage();
 
         Task WriteValueToStorage(string state);
-
-        Task Subscribe(IValueObserver observer);
     }
 }

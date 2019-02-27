@@ -26,10 +26,5 @@ namespace Orleans.TutorialOne.Grains
             State.Value = state;
             return base.WriteStateAsync();
         }
-
-        public async Task Subscribe(IValueObserver observer)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
