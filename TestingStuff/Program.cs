@@ -32,7 +32,7 @@ namespace TestingStuff
 
         public Foo()
         {
-            //X = 3;
+            X = 3;
         }
     }
 
@@ -67,7 +67,7 @@ namespace TestingStuff
         {
             //var bar = new Bar();
 
-            //new AsyncLocalTest().Test();
+            new AsyncLocalTest().Test().Wait();
 
             //Do1();
 
@@ -90,7 +90,7 @@ namespace TestingStuff
 
             //UdemyPatternExercise.DoWork();
 
-            ReflectionTest.Test5();
+            //ReflectionTest.Test5();
 
             Console.ReadKey();
         }

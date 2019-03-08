@@ -99,8 +99,11 @@ namespace TestingStuff.Reflection
                 var methodDelegate2 = (Func<PropertyGetterTest, int, int>)Delegate.CreateDelegate(typeof(Func<PropertyGetterTest, int, int>), null, methodInfo);
                 var result2 = methodDelegate2(test1, 12);
 
-                var methodDelegate3 = (Func<int, int>)Delegate.CreateDelegate(typeof(Func<int, int>), null, methodInfo);
-                var result3 = methodDelegate3(13);
+                //var methodDelegate3 = (Func<int, int>)Delegate.CreateDelegate(typeof(Func<int, int>), null, methodInfo);
+                //var result3 = methodDelegate3(13);
+
+                var methodDelegate4 = (Func<PropertyGetterTest, int, int>)Delegate.CreateDelegate(typeof(Func<PropertyGetterTest, int, int>), test1, methodInfo);
+                var result4 = methodDelegate4(test1, 100);
             }
             catch (Exception e)
             {
