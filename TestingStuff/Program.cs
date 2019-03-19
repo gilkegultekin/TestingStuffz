@@ -8,12 +8,14 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Algorithms.Heaps;
 using TestingStuff.Coordination;
+using TestingStuff.EFCore;
 using TestingStuff.Network;
 using TestingStuff.Observer;
 using TestingStuff.Reflection;
@@ -67,7 +69,7 @@ namespace TestingStuff
         {
             //var bar = new Bar();
 
-            new AsyncLocalTest().Test().Wait();
+            //new AsyncLocalTest().Test().Wait();
 
             //Do1();
 
@@ -92,7 +94,31 @@ namespace TestingStuff
 
             //ReflectionTest.Test5();
 
+            //CertificateTest().Wait();
+
+            InMemoryTest().Wait();
+
             Console.ReadKey();
+        }
+
+        static async Task InMemoryTest()
+        {
+            var test = new InMemoryTest();
+
+            await test.TestScenario1();
+        }
+
+        static async Task CertificateTest()
+        {
+            //var rawData = await File.ReadAllBytesAsync(@"C:\Users\ilke.gultekin\Desktop\OAuthSigningCertificate.cer");
+
+            var rawData = await File.ReadAllBytesAsync(@"C:\Keys\oAuthSigningKey3.pfx");
+
+            var cert = new X509Certificate2(rawData);
+
+            var certStore = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            certStore.Open(OpenFlags.ReadWrite);
+            certStore.Add(cert);
         }
         
 	    static void HeapTest()
