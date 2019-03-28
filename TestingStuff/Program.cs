@@ -90,13 +90,13 @@ namespace TestingStuff
 
             //TcpTester().Wait();
 
-            //UdemyPatternExercise.DoWork();
+            UdemyPatternExercise.DoWork().Wait();
 
             //ReflectionTest.Test5();
 
             //CertificateTest().Wait();
 
-            InMemoryTest().Wait();
+            //InMemoryTest().Wait();
 
             Console.ReadKey();
         }
