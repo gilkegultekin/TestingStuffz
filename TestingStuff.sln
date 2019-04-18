@@ -29,13 +29,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orleans.TutorialOne.GrainIn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orleans.TutorialOne.Grains", "Orleans\Orleans.TutorialOne.Grains\Orleans.TutorialOne.Grains.csproj", "{333B5EA3-5021-4B8D-804B-AA0137999D15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.LiveAgent.WebApi", "Orleans\Orleans.LiveAgent.WebApi\Orleans.LiveAgent.WebApi.csproj", "{65E72224-094D-4D75-A411-AA6F98FDECE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orleans.LiveAgent.WebApi", "Orleans\Orleans.LiveAgent.WebApi\Orleans.LiveAgent.WebApi.csproj", "{65E72224-094D-4D75-A411-AA6F98FDECE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.PoC.SignalRHost", "Orleans\Orleans.PoC.SignalRHost\Orleans.PoC.SignalRHost.csproj", "{FFCB3414-95E6-440F-9B8D-797BAC0D2248}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orleans.PoC.SignalRHost", "Orleans\Orleans.PoC.SignalRHost\Orleans.PoC.SignalRHost.csproj", "{FFCB3414-95E6-440F-9B8D-797BAC0D2248}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.LiveAgent.ConsoleClient", "Orleans\Orleans.LiveAgent.ConsoleClient\Orleans.LiveAgent.ConsoleClient.csproj", "{0CA09342-EB05-4F9C-9928-AA20C50BC72C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orleans.LiveAgent.ConsoleClient", "Orleans\Orleans.LiveAgent.ConsoleClient\Orleans.LiveAgent.ConsoleClient.csproj", "{0CA09342-EB05-4F9C-9928-AA20C50BC72C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.LiveAgent.CustomerConsoleClient", "Orleans\Orleans.LiveAgent.CustomerConsoleClient\Orleans.LiveAgent.CustomerConsoleClient.csproj", "{4BAF3B91-BCAB-4938-8146-A882D4FB0C4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orleans.LiveAgent.CustomerConsoleClient", "Orleans\Orleans.LiveAgent.CustomerConsoleClient\Orleans.LiveAgent.CustomerConsoleClient.csproj", "{4BAF3B91-BCAB-4938-8146-A882D4FB0C4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D88ED9B3-5403-4DD1-8687-C05DF3889FC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithms.Tests", "tests\Algorithms.Tests\Algorithms.Tests.csproj", "{83BFD493-DDD5-4F05-A6C2-34393066BAD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +107,10 @@ Global
 		{4BAF3B91-BCAB-4938-8146-A882D4FB0C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BAF3B91-BCAB-4938-8146-A882D4FB0C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BAF3B91-BCAB-4938-8146-A882D4FB0C4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83BFD493-DDD5-4F05-A6C2-34393066BAD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83BFD493-DDD5-4F05-A6C2-34393066BAD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83BFD493-DDD5-4F05-A6C2-34393066BAD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83BFD493-DDD5-4F05-A6C2-34393066BAD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +127,7 @@ Global
 		{FFCB3414-95E6-440F-9B8D-797BAC0D2248} = {95092AF9-3B97-40D8-9867-06CEE13F3E6A}
 		{0CA09342-EB05-4F9C-9928-AA20C50BC72C} = {95092AF9-3B97-40D8-9867-06CEE13F3E6A}
 		{4BAF3B91-BCAB-4938-8146-A882D4FB0C4F} = {95092AF9-3B97-40D8-9867-06CEE13F3E6A}
+		{83BFD493-DDD5-4F05-A6C2-34393066BAD8} = {D88ED9B3-5403-4DD1-8687-C05DF3889FC2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6A420742-FC15-471D-8AC2-F47FEA89C018}

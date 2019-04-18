@@ -65,7 +65,7 @@ namespace TestingStuff
 
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             //var bar = new Bar();
 
@@ -90,13 +90,15 @@ namespace TestingStuff
 
             //TcpTester().Wait();
 
-            UdemyPatternExercise.DoWork().Wait();
+            //UdemyPatternExercise.DoWork().Wait();
 
             //ReflectionTest.Test5();
 
             //CertificateTest().Wait();
 
             //InMemoryTest().Wait();
+
+            await ChunkedTest();
 
             Console.ReadKey();
         }
