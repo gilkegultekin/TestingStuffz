@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Algorithms.LinkedLists
 {
@@ -7,19 +6,41 @@ namespace Algorithms.LinkedLists
     {
         public bool HasCycle(ListNode head)
         {
+            if (head == null)
+            {
+                return false;
+            }
+
+            ListNode slow = head.next;
+            ListNode fast = head.next?.next;
+
+            while (fast != null)
+            {
+                if (slow == fast)
+                {
+                    return true;
+                }
+
+                slow = slow.next;
+                fast = fast.next?.next;
+            }
+
+            return false;
+        }
+
+        public bool HasCycle_HashSet(ListNode head)
+        {
             HashSet<ListNode> nodeHashSet = new HashSet<ListNode>();
 
             ListNode current = head;
-            nodeHashSet.Add(current);
-
-            while(current.next != null){
-                current = current.next;
-                if (nodeHashSet.Contains(current)){
+            while (current != null)
+            {
+                if (!nodeHashSet.Add(current))
+                {
                     return true;
                 }
-                else{
-                    nodeHashSet.Add(current);
-                }
+
+                current = current.next;
             }
 
             return false;
