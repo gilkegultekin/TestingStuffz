@@ -1,5 +1,6 @@
-﻿using System;
+﻿using Algorithms.Heaps;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Algorithms
 {
@@ -19,7 +20,21 @@ namespace Algorithms
     /// </summary>
     public class FindKthLargestElementSolution : ISolution<int, int[], int>
     {
-        public int FindKthLargest(int[] nums, int k)
+        //TODO: quick sort and take the kth element
+        public int FindKthLargest_HeapImplementation(int[] nums, int k)
+        {
+            //max-heapify and extract the first k numbers
+            MaxHeap<int> maxHeap = new MaxHeap<int>(nums.ToList());
+
+            for (int i = 0; i < k-1; i++)
+            {
+                maxHeap.ExtractMax();
+            }
+
+            return maxHeap.ExtractMax();
+        }
+
+        public int FindKthLargest_ListImplementation(int[] nums, int k)
         {
             //Keep the largest k elements in a sorted list
             List<int> buffer = new List<int>(k+1);
@@ -56,7 +71,7 @@ namespace Algorithms
 
         public int Solve(int[] param1, int param2)
         {
-            return FindKthLargest(param1, param2);
+            return FindKthLargest_HeapImplementation(param1, param2);
         }
     }
 }
