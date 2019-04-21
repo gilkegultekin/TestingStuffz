@@ -29,7 +29,61 @@ namespace Algorithms
     /// </summary>
     public class NumberOfIslandsSolution: ISolution<int, char[][]>
     {
-        public int NumIslands(char[][] grid)
+        public int NumIslands_DepthFirstSearch(char[][] grid)
+        {
+            if (grid == null || grid.Length == 0)
+            {
+                return 0;
+            }
+
+            int gridXDim = grid.Length;
+            int gridYDim = grid[0].Length;
+            int islandCount = 0;
+
+            for (int i = 0; i < gridXDim; i++)
+            {
+                for (int j = 0; j < gridYDim; j++)
+                {
+                    if (grid[i][j] == '1')
+                    {
+                        islandCount++;
+                        DepthFirstSearch(i,j);
+                    }
+                }
+            }
+
+            return islandCount;
+
+            void DepthFirstSearch(int x, int y)
+            {
+                if (!ValidateCoordinates(x, y))
+                {
+                    return;
+                }
+
+                if (grid[x][y] == '1')
+                {
+                    grid[x][y] = '0';
+                    //recurse
+                    //left neighbor
+                    DepthFirstSearch(x, y - 1);
+                    //right neighbor
+                    DepthFirstSearch(x, y + 1);
+                    //top neighbor
+                    DepthFirstSearch(x - 1, y);
+                    //bottom neighbor
+                    DepthFirstSearch(x + 1, y);
+                }
+            }
+
+            bool ValidateCoordinates(int x, int y)
+            {
+                return x >= 0 && x < gridXDim && y >= 0 && y < gridYDim;
+            }
+        }
+
+
+        public int NumIslands_BruteForceIteration(char[][] grid)
         {
             int islandCount = 0;
             int maxIslandId = 0;
@@ -99,7 +153,7 @@ namespace Algorithms
 
         public int Solve(char[][] param)
         {
-            return NumIslands(param);
+            return NumIslands_DepthFirstSearch(param);
         }
     }
 }
