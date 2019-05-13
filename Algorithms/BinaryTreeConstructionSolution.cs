@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Algorithms
 {
@@ -23,95 +24,77 @@ namespace Algorithms
     /// </summary>
     public class BinaryTreeConstructionSolution : ISolution<TreeNode, int[], int[]>
     {
+        //find the root in inorder array
+        //everything before the root will be in the left subtree, everything after the root will be in the right subtree
+
+        //the second node in pre order traversal has to be the root's child, but we have to check if its the left child or the right (by checking in which subtree it resides)
+        //the third node in pre order traversal is the right child of the root if the previous node is left child and the third node resides in the right subtree
+
+        //find the root in in-order traversal. Everything before it will be in the left subtree and everything after it will be in the right subtree
         public TreeNode BuildTreeBrute(int[] preorder, int[] inorder)
         {
-            if (preorder.Length == 1)
-            {
-                return new TreeNode(preorder[0]);
-            }
-
-            //find the root in inorder array
-            //everything before the root will be in the left subtree, everything after the root will be in the right subtree
-
-            List<int> leftSubtreeInOrder = new List<int> { };
-            List<int> rightSubtreeInOrder = new List<int> { };
-
-            int currentElementPreOrder = preorder[0];
-
-            int j = 0;
-            while (j < inorder.Length && inorder[j] != currentElementPreOrder)
-            {
-                leftSubtreeInOrder.Add(inorder[j++]);
-            }
-
-            if (j < inorder.Length)
-            {
-                j++;
-            }
-
-            while (j < inorder.Length && j < inorder.Length)
-            {
-                rightSubtreeInOrder.Add(inorder[j]);
-            }
-
-            TreeNode root = new TreeNode(preorder[0]);
-            ConstructSubTrees(root, leftSubtreeInOrder, rightSubtreeInOrder, preorder, 1);
-            return root;
+            return ConstructSubtree(preorder.ToList(), inorder.ToList());
         }
 
-        private TreeNode ConstructSubTrees(TreeNode node, List<int> leftSubtreeInOrder, List<int> rightSubtreeInOrder,
-            int[] preOrder, int currentPreOrderIndex)
+        private TreeNode ConstructSubtree(List<int> preOrder, List<int> inOrder)
         {
-            int currentElementPreOrder = preOrder[currentPreOrderIndex];
-            List<int> leftSubtreeOfCurrentElement = new List<int>{ };
-            List<int> rightSubtreeOfCurrentElement = new List<int> { };
-            bool leftSubtreeContainsCurrentElement = false;
-            bool rightSubtreeContainsCurrentElement = false;
-
-            foreach (int elm in leftSubtreeInOrder)
+            if (preOrder.Count == 0)
             {
-                if (!leftSubtreeContainsCurrentElement)
+                return null;
+            }
+
+            int rootValue = preOrder[0];
+            TreeNode root = new TreeNode(rootValue);
+
+            if (preOrder.Count == 1)
+            {
+                return root;
+            }
+
+            List<int> leftInOrder = new List<int>();
+            List<int> rightInOrder = new List<int>();
+            bool rootEncountered = false;
+            Dictionary<int, bool> lookupTable = new Dictionary<int, bool>();
+
+            foreach (int element in inOrder)
+            {
+                if (element == rootValue)
                 {
-                    if (elm != currentElementPreOrder)
-                    {
-                        leftSubtreeOfCurrentElement.Add(elm);
-                    }
-                    else
-                    {
-                        leftSubtreeContainsCurrentElement = true;
-                    }
+                    rootEncountered = true;
+                }
+                else if (!rootEncountered)
+                {
+                    leftInOrder.Add(element);
+                    lookupTable[element] = true; //true = left, false = right
                 }
                 else
                 {
-                    rightSubtreeOfCurrentElement.Add(elm);
+                    rightInOrder.Add(element);
+                    lookupTable[element] = false;
                 }
             }
 
-            if (!leftSubtreeContainsCurrentElement)
-            {
-                leftSubtreeOfCurrentElement.Clear();
-            }
+            List<int> leftPreOrder = new List<int>();
+            List<int> rightPreOrder = new List<int>();
 
-            foreach (int elm in rightSubtreeInOrder)
+            for (int i = 1; i < preOrder.Count; i++)
             {
-                if (!rightSubtreeContainsCurrentElement)
+                int element = preOrder[i];
+                if (lookupTable[element])
                 {
-                    if (elm != currentElementPreOrder)
-                    {
-                        leftSubtreeOfCurrentElement.Add(elm);
-                    }
-                    else
-                    {
-                        rightSubtreeContainsCurrentElement = true;
-                    }
+                    leftPreOrder.Add(element);
                 }
                 else
                 {
-                    rightSubtreeOfCurrentElement.Add(elm);
+                    rightPreOrder.Add(element);
                 }
             }
 
-
+            TreeNode leftChild = ConstructSubtree(leftPreOrder, leftInOrder);
+            root.left = leftChild;
+            TreeNode rightChild = ConstructSubtree(rightPreOrder, rightInOrder);
+            root.right = rightChild;
+            return root;
         }
 
         public TreeNode Solve(int[] param1, int[] param2)
