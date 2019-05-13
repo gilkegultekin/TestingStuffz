@@ -82,9 +82,28 @@ namespace Algorithms
             return currentLayer.Max(n => n.CurrentProfit);
         }
 
+        public int MaxProfit2(int[] prices)
+        {
+            if (prices.Length <= 1)
+            {
+                return 0;
+            }
+
+            int bestProfitWithAsset = -prices[0];
+            int bestProfitWithoutAsset = 0;
+
+            for (int i = 1; i < prices.Length; i++)
+            {
+                bestProfitWithoutAsset = Math.Max(bestProfitWithAsset + prices[i], bestProfitWithoutAsset);
+                bestProfitWithAsset = Math.Max(bestProfitWithAsset, bestProfitWithoutAsset - prices[i]);
+            }
+
+            return Math.Max(bestProfitWithoutAsset, bestProfitWithAsset);
+        }
+
         public int Solve(int[] param)
         {
-            return MaxProfit(param);
+            return MaxProfit2(param);
         }
 
         private class Node : IComparable<Node>
