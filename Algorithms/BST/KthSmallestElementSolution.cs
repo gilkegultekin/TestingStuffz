@@ -1,4 +1,6 @@
-﻿namespace Algorithms.BST
+﻿using System.Collections.Generic;
+
+namespace Algorithms.BST
 {
     /// <summary>
     /// 230. Kth Smallest Element in a BST
@@ -32,6 +34,8 @@
     /// </summary>
     public class KthSmallestElementSolution : ISolution<int, TreeNode, int>
     {
+        private bool _endRecursion;
+
         public int KthSmallest(TreeNode root, int k)
         {
             AugmentedTreeNode augmentedRoot = AugmentedTreeNode.CreateAugmentedTreeNode(root, null , false);
@@ -46,9 +50,39 @@
             return currentNode.Value;
         }
 
+        public int KthSmallestInOrderTraversalRecursive(TreeNode root, int k)
+        {
+            List<int> inOrder = new List<int>();
+            TraverseTreeInOrder(root, inOrder, k);
+            return inOrder[k - 1];
+        }
+
+        private void TraverseTreeInOrder(TreeNode node, List<int> inOrder, int k)
+        {
+            if (_endRecursion || node == null)
+            {
+                return;
+            }
+
+            TraverseTreeInOrder(node.left, inOrder, k);
+            if (_endRecursion)
+            {
+                return;
+            }
+
+            inOrder.Add(node.val);
+            if (inOrder.Count == k)
+            {
+                _endRecursion = true;
+                return;
+            }
+
+            TraverseTreeInOrder(node.right, inOrder, k);
+        }
+
         public int Solve(TreeNode param1, int param2)
         {
-            return KthSmallest(param1, param2);
+            return KthSmallestInOrderTraversalRecursive(param1, param2);
         }
 
         private class AugmentedTreeNode
