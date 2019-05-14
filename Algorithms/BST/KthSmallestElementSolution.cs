@@ -50,6 +50,36 @@ namespace Algorithms.BST
             return currentNode.Value;
         }
 
+        public int KthSmallestInOrderTraversalIterative(TreeNode root, int k)
+        {
+            Stack<TreeNode> stack = new Stack<TreeNode>();
+            TreeNode current = root;
+
+            //You go left until you hit a node with no left child, then you go right once and start going left again until you hit another dead end.
+            //Whenever you hit a node with no left child, you've found the next smallest element in the tree.
+            //The next smallest element will be the left most node in the right subtree of this element (if it exists). Otherwise, (meaning you've hit a leaf) the next smallest node will be the one on top of the stack
+            while (true)
+            {
+                //go left until you hit a leaf.
+                //when you get out of the second while loop, you've found the next smallest element, which is on top of the stack
+                while (current != null)
+                {
+                    stack.Push(current);
+                    current = current.left;
+                }
+
+                TreeNode lastNode = stack.Pop();
+                //if this element is the kth smallest element, return its value
+                if (--k == 0)
+                {
+                    return lastNode.val;
+                }
+
+                //In the next iteration of the first while loop, the left subtree of the right child of the popped node will be explored.
+                current = lastNode.right;
+            }
+        }
+
         public int KthSmallestInOrderTraversalRecursive(TreeNode root, int k)
         {
             List<int> inOrder = new List<int>();
@@ -82,7 +112,7 @@ namespace Algorithms.BST
 
         public int Solve(TreeNode param1, int param2)
         {
-            return KthSmallestInOrderTraversalRecursive(param1, param2);
+            return KthSmallestInOrderTraversalIterative(param1, param2);
         }
 
         private class AugmentedTreeNode
