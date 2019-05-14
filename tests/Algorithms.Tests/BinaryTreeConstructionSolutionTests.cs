@@ -78,5 +78,27 @@ namespace Algorithms.Tests
             result.right.right.Should().BeNull();
             result.left.Should().BeNull();
         }
+
+        [Fact]
+        public void Test5()
+        {
+            int[] preOrder = { 3, 9, 6, 8, 20, 15, 7 };
+            int[] inOrder = { 6, 9, 8, 3, 15, 20, 7 };
+
+            BinaryTreeConstructionSolution solution = new BinaryTreeConstructionSolution();
+            TreeNode result = solution.Solve(preOrder, inOrder);
+
+            result.val.Should().Be(3);
+            result.left.val.Should().Be(9);
+            result.left.left.val.Should().Be(6);
+            result.left.right.val.Should().Be(8);
+            result.right.val.Should().Be(20);
+            result.right.left.val.Should().Be(15);
+            result.right.right.val.Should().Be(7);
+            result.right.left.left.Should().BeNull();
+            result.right.left.right.Should().BeNull();
+            result.right.right.left.Should().BeNull();
+            result.right.right.right.Should().BeNull();
+        }
     }
 }
