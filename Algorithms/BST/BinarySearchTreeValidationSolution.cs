@@ -37,32 +37,34 @@ namespace Algorithms.BST
     /// </summary>
     public class BinarySearchTreeValidationSolution : ISolution<bool, TreeNode>
     {
+        private int? _lastSeenValue = null;
+
         public bool IsValidBSTInOrderTraversal(TreeNode root)
         {
-            return TraverseTreeInOrder(root, new List<int>());
+            return TraverseTreeInOrder(root);
         }
 
-        private bool TraverseTreeInOrder(TreeNode node, List<int> explored)
+        private bool TraverseTreeInOrder(TreeNode node)
         {
             if (node == null)
             {
                 return true;
             }
 
-            bool isLeftSubtreeValid = TraverseTreeInOrder(node.left, explored);
+            bool isLeftSubtreeValid = TraverseTreeInOrder(node.left);
             if (!isLeftSubtreeValid)
             {
                 return false;
             }
 
-            if (explored.Any() && node.val <= explored.Last())
+            if (_lastSeenValue.HasValue && node.val <= _lastSeenValue.Value)
             {
                 return false;
             }
 
-            explored.Add(node.val);
-
-            return TraverseTreeInOrder(node.right, explored);
+            _lastSeenValue = node.val;
+            
+            return TraverseTreeInOrder(node.right);
         }
 
         public bool IsValidBSTRecursion(TreeNode root)

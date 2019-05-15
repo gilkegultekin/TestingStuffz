@@ -9,6 +9,7 @@ namespace Algorithms.Tests
     public class BinarySearchTreeValidationSolutionTests
     {
         [Theory]
+        [InlineData(new[] { 1, 1 }, false)]
         [InlineData(new[] { 2, 1, 3 }, true)]
         [InlineData(new[] { 5, 1, 4, -1, -1, 3, 6 }, false)]
         [InlineData(new[] { 2147483647 }, true)]
