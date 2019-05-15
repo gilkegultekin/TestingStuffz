@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Algorithms.BST
 {
     public static class BinarySearchTreeGenerator
     {
-        public static TreeNode GenerateFromArray(int[] array)
+        public static TreeNode GenerateFromArray(int[] array, bool validateTree = true)
         {
+            if (!array.Any())
+            {
+                return null;
+            }
+
             int index = 0;
             TreeNode root = new TreeNode(array[index]);
             Queue<TreeNode> nodesToProcess = new Queue<TreeNode>();
@@ -18,7 +24,7 @@ namespace Algorithms.BST
 
                 if (++index < array.Length && array[index] >= 0)
                 {
-                    if (array[index] >= currentNode.val)
+                    if (validateTree && array[index] >= currentNode.val)
                     {
                         throw new ArgumentException("The array does not have a binary tree structure!");
                     }
@@ -30,7 +36,7 @@ namespace Algorithms.BST
 
                 if (++index < array.Length && array[index] >= 0)
                 {
-                    if (array[index] <= currentNode.val)
+                    if (validateTree && array[index] <= currentNode.val)
                     {
                         throw new ArgumentException("The array does not have a binary tree structure!");
                     }
