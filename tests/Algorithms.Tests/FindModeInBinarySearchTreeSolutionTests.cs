@@ -1,6 +1,5 @@
 ﻿using Algorithms.BST;
 using FluentAssertions;
-using System;
 using Xunit;
 using BSTTreeNode = Algorithms.BST.TreeNode;
 
@@ -19,8 +18,7 @@ namespace Algorithms.Tests
 
             result.Should().NotBeNull();
             result.Length.Should().Be(expectedResult.Length);
-            Array.Sort(result);
-            Array.Sort(expectedResult);
+            //Assuming that the expectedResult array will be sorted
             for (int i = 0; i < result.Length; i++)
             {
                 result[i].Should().Be(expectedResult[i]);

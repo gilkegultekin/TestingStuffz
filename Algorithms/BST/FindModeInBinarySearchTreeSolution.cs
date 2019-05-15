@@ -54,14 +54,18 @@ namespace Algorithms.BST
             if (_currentValue == node.val)
             {
                 _currentCount++;
-                if (_currentCount > _modeCount)
+                if (_currentCount < _modeCount)
                 {
-                    _modeCount = _currentCount;
-                    _modeValues.Clear();
-                    _modeValues.Add(_currentValue);
+
                 }
                 else if (_currentCount == _modeCount)
                 {
+                    _modeValues.Add(_currentValue);
+                }
+                else
+                {
+                    _modeCount = _currentCount;
+                    _modeValues.Clear();
                     _modeValues.Add(_currentValue);
                 }
             }
@@ -69,13 +73,17 @@ namespace Algorithms.BST
             {
                 _currentCount = 1;
                 _currentValue = node.val;
-                if (_modeCount == 0)
+                if (_modeCount > 1)
                 {
-                    _modeCount = _currentCount;
+
+                }
+                else if (_modeCount == 1)
+                {
                     _modeValues.Add(_currentValue);
                 }
-                else if (_currentCount == _modeCount)
+                else
                 {
+                    _modeCount = 1;
                     _modeValues.Add(_currentValue);
                 }
             }
