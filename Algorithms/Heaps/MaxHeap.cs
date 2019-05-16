@@ -96,10 +96,7 @@ namespace Algorithms.Heaps
             var sortedArray = new T[_input.Count];
 
             //have to work on a copy of the input list
-            var copyArray = new T[_input.Count];
-            _input.CopyTo(copyArray); //is this a deep copy? Since I dont mutate any of the list's elements, a shallow copy should do
-            //nevertheless TODO: have to check if list.CopyTo is shallow or deep
-            var copyList = new List<T>(copyArray);
+            var copyList = CopyUnderlyingList();
 
             //extract max until no nodes are left
             var counter = copyList.Count - 1;
@@ -110,6 +107,32 @@ namespace Algorithms.Heaps
             }
 
             return new List<T>(sortedArray);
+        }
+
+        public T TakeKthLargestElement(int k)
+        {
+            //have to work on a copy of the input list
+            var copyList = CopyUnderlyingList();
+
+            T kthLargest = default;
+
+            while (k > 0)
+            {
+                kthLargest = ExtractMax(copyList);
+                k--;
+            }
+
+            return kthLargest;
+        }
+
+        private List<T> CopyUnderlyingList()
+        {
+            var copyArray = new T[_input.Count];
+            _input.CopyTo(copyArray); //is this a deep copy? Since I dont mutate any of the list's elements, a shallow copy should do
+            //nevertheless TODO: have to check if list.CopyTo is shallow or deep
+            var copyList = new List<T>(copyArray);
+
+            return copyList;
         }
 
         //insert last element at the very bottom, then compare it with its parent and swap if the new element is bigger.
