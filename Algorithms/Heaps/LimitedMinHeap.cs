@@ -89,6 +89,11 @@ namespace Algorithms.Heaps
             }
         }
 
+        public TResult[] ToArray<TResult>(Func<T, TResult> converter)
+        {
+            return _array.Select(converter).ToArray();
+        }
+
         public T PeekMin()
         {
             return _array[0];
@@ -129,6 +134,32 @@ namespace Algorithms.Heaps
             }
 
             if (_array[0].CompareTo(newElement) >= 0)
+            {
+                return;
+            }
+
+            _array[0] = newElement;
+            MinHeapify(_array, 1, _currentArrayLength);
+        }
+
+        public void Insert(T newElement, Func<T, T, bool> newElementInsertionPredicate)
+        {
+            if (_currentArrayLength < _limit)
+            {
+                _array[_currentArrayLength] = newElement;
+
+                int index = _currentArrayLength;
+                while (index > 0 && Compare(index, (index - 1) / 2))
+                {
+                    Swap(index, (index - 1) / 2);
+                    index = (index - 1) / 2;
+                }
+
+                _currentArrayLength++;
+                return;
+            }
+
+            if (!newElementInsertionPredicate(_array[0], newElement))
             {
                 return;
             }
