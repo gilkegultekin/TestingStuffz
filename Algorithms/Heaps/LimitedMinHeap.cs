@@ -105,7 +105,7 @@ namespace Algorithms.Heaps
             var extractedElement = array[0];
             Swap(array, 0, arrayLength - 1);
             array[arrayLength - 1] = default;
-            MinHeapify(array, 1, arrayLength - 1);
+            MinHeapify(array, 1, --_currentArrayLength);
             return extractedElement;
         }
 
