@@ -40,14 +40,107 @@ namespace Algorithms.Heaps
     {
         public int[][] KClosest(int[][] points, int K)
         {
+            if (points.Length <= K)
+            {
+                return points;
+            }
+
+            //quick sort until you get k elements in the first half, the order of the elements in the resulting array is not important
+            int start = 0;
+            int end = points.Length - 1;
+            int pivotIndex = 0;
+
+            while (pivotIndex != K)
+            {
+                pivotIndex = DivideViaPivot(points, start, end);
+
+                if (pivotIndex > K)
+                {
+                    //divide left half
+                    end = pivotIndex - 1;
+                }
+                else if (pivotIndex < K)
+                {
+                    //divide right half
+                    start = pivotIndex + 1;
+                }
+            }
+
+            return points.AsMemory(0, K).ToArray();
+        }
+
+        private int DivideViaPivot(int[][] array, int start, int end)
+        {
+            if (start == end)
+            {
+                return start;
+            }
+
+            if (end == start + 1)
+            {
+                if (ComparePoints(array[start], array[end]) > 0)
+                {
+                    Swap(array, start, end);
+                    return end;
+                }
+
+                return start;
+            }
+
+            int[] pivot = array[start];
+            int leftPointer = start + 1;
+            int rightPointer = end;
+
+            while (leftPointer < rightPointer)
+            {
+                while (leftPointer < array.Length && ComparePoints(array[leftPointer], pivot) < 1)
+                {
+                    leftPointer++;
+                }
+
+                while (rightPointer >= 0 && ComparePoints(array[rightPointer], pivot) > 0)
+                {
+                    rightPointer--;
+                }
+
+                if (leftPointer >= rightPointer)
+                {
+                    break;
+                }
+
+                Swap(array, leftPointer, rightPointer);
+            }
+
+            if (rightPointer > start)
+            {
+                Swap(array, start, rightPointer);
+            }
+
+            return rightPointer;
+        }
+
+        private void Swap(int[][] array, int first, int second)
+        {
+            int[] temp = array[first];
+            array[first] = array[second];
+            array[second] = temp;
+        }
+
+        private int ComparePoints(int[] p1, int[] p2)
+        {
+            return p1[0] * p1[0] + p1[1] * p1[1] - p2[0] * p2[0] - p2[1] * p2[1];
+        }
+
+        public int[][] KClosestLimitedCapacityHeap(int[][] points, int K)
+        {
             List<TwoDimensionalPoint> allPoints = points.Select(a => new TwoDimensionalPoint(a[0], a[1])).ToList();
 
             //TODO: Use a limited max heap and only insert new element if the distance to the origin is smaller than the max in the heap.
             //This way each insert will take O(log K) in the worst case. Brute force sorting has O(N log N) complexity whereas this approach's runtime is (K/2 * log K) + (N-K)*log K ~= O(N log K)
-            
+
             LimitedCapacityHeap<TwoDimensionalPoint> heap = new LimitedCapacityHeap<TwoDimensionalPoint>(allPoints, K, false);
 
-            return heap.ToArray(p => new[] {p.X, p.Y});
+            return heap.ToArray(p => new[] { p.X, p.Y });
         }
 
         public int[][] KClosestBruteForceSort(int[][] points, int K)
