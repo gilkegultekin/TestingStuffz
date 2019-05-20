@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Algorithms.Heaps
@@ -39,12 +40,14 @@ namespace Algorithms.Heaps
     {
         public int[][] KClosest(int[][] points, int K)
         {
-            TwoDimensionalPoint[] allPoints = points.Select(a => new TwoDimensionalPoint(a[0], a[1])).ToArray();
+            List<TwoDimensionalPoint> allPoints = points.Select(a => new TwoDimensionalPoint(a[0], a[1])).ToList();
 
             //TODO: Use a limited max heap and only insert new element if the distance to the origin is smaller than the max in the heap.
             //This way each insert will take O(log K) in the worst case. Brute force sorting has O(N log N) complexity whereas this approach's runtime is (K/2 * log K) + (N-K)*log K ~= O(N log K)
             
-            return new int[2][];
+            LimitedCapacityHeap<TwoDimensionalPoint> heap = new LimitedCapacityHeap<TwoDimensionalPoint>(allPoints, K, false);
+
+            return heap.ToArray(p => new[] {p.X, p.Y});
         }
 
         public int[][] KClosestBruteForceSort(int[][] points, int K)
