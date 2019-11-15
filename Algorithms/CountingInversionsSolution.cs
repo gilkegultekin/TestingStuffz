@@ -4,6 +4,7 @@ namespace Algorithms
 {
     /// <summary>
     /// Counts inversions in a given 1-d array piggybacking on MergeSort, inspired by the Algorithms course on Coursera.org (offered by Stanford Uni.)
+    /// Running time: O(n log n), same as MergeSort, we only add a constant amount of work at each step (incrementing a running counter) so the work done at each node in the recursion tree stays the same, O(n).
     /// </summary>
     public class CountingInversionsSolution : ISolution<int, int[]>
     {
