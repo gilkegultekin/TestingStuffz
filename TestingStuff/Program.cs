@@ -16,6 +16,7 @@ using System.Web;
 using Algorithms.Heaps;
 using TestingStuff.Coordination;
 using TestingStuff.EFCore;
+using TestingStuff.Mediator;
 using TestingStuff.Network;
 using TestingStuff.Observer;
 using TestingStuff.Reflection;
@@ -98,7 +99,9 @@ namespace TestingStuff
 
             //InMemoryTest().Wait();
 
-            await ChunkedTest();
+            //await ChunkedTest();
+
+            MediatorUdemyExercise.Test();
 
             Console.ReadKey();
         }
